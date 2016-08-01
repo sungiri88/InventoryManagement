@@ -1,0 +1,15 @@
+﻿body {
+    margin: 0px auto;
+    padding-top: 70px;
+}
+hr{
+    height: 12px;
+    border: 0;
+    box-shadow: inset 0 12px 6px -12px #808080;
+}
+.anchor{
+   display:block;
+   height:63px; /* this is the height of your header */
+   margin-top:-63px; /* this is again negative value of the height of your header */
+   visibility:hidden;
+}

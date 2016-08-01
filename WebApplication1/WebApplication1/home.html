@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>Inventory Management Portal</title>
+
+    <link href="Content/bootstrap-theme.min.css" rel="stylesheet" />
+    <link href="Content/bootstrap.min.css" rel="stylesheet" />
+    <link href="Content/style.css" rel="stylesheet" />
+    <link href="Content/jquery.dataTables.min.css" rel="stylesheet" />
+    <link href="Content/jquery.dataTables_themeroller.css" rel="stylesheet" />
+
+    <script src="Scripts/jquery-3.1.0.min.js"></script>
+    <script src="Scripts/bootstrap.min.js"></script>
+    <script src="Scripts/app.js"></script>
+    <script src="scripts/jquery.dataTables.min.js"></script>
+    <script src="scripts/underscore-min.js"></script>
+
+    <meta charset="utf-8" />
+</head>
+<body>
+    <div class="row">
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#">Inventory Management</a>
+                </div>
+                <ul class="nav navbar-nav">
+                    <li class="active"><a href="#">Home</a></li>
+                    <li><a href="#project">Project</a></li>
+                    <li><a href="#groups">Groups</a></li>
+                    <li><a href="#hosts">Hosts</a></li>
+                </ul>
+            </div>
+        </nav>
+
+        <div class="container">
+            <div class="content">
+                <span id="project" class="anchor"></span>
+                <section>
+                    <h2>Project Management</h2><hr />
+                    <div id="ProjectTableContainer"></div>
+                </section>
+                <span id="groups" class="anchor"></span>
+                <section>
+                    <h2>Groups Management</h2><hr />
+                    <div id="GroupTableContainer"></div>
+                </section>
+                <span id="hosts" class="anchor"></span>
+                <section>
+                    <h2>Hosts Management</h2><hr />
+                    <div id="HostTableContainer"></div>
+                </section>
+            </div>
+            <div class="modals">
+                <div class="modal fade" id="ProjectEditModal" tabindex="-1" role="dialog" aria-labelledby="ProjectEditModal" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="myModalLabel"></h4>
+                            </div>
+                            <div class="modal-body">
+                                <form role="form">
+                                    <div class="form-group">
+                                        <label for="projectid">Project ID</label>
+                                        <input type="text" id="projectid" class="form-control" disabled />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="projectname">Project Name</label>
+                                        <input type="text" id="projectname" class="form-control" disabled />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="projectdescription">Project Description</label>
+                                        <input type="text" id="projectdescription" class="form-control" disabled />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Is Enabled</label><br />
+                                        <input type='radio' name='isenabled' value='Y'> Y<br />
+                                        <input type='radio' name='isenabled' value='N'> N<br />
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" id="updateProject" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal fade" id="GroupEditModal" tabindex="-1" role="dialog" aria-labelledby="GroupEditModal" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="myModalLabel"></h4>
+                            </div>
+                            <div class="modal-body">
+                                <form role="form">
+                                    <div class="form-group">
+                                        <label for="groupid">Group ID</label>
+                                        <input type="text" id="groupid" class="form-control" disabled />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="projectname">Project Name</label>
+                                        <input type="text" id="projectname" class="form-control" disabled />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="groupname">Group Name</label>
+                                        <input type="text" id="groupname" class="form-control" disabled />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="groupvariables">Group Variables</label>
+                                        <input type="text" id="groupvariables" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Is Enabled</label><br />
+                                        <input type='radio' name='isenabled' value='Y'> Y<br />
+                                        <input type='radio' name='isenabled' value='N'> N <br />
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" id="updateGroup" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal fade" id="HostEditModal" tabindex="-1" role="dialog" aria-labelledby="HostEditModal" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                                <h4 class="modal-title" id="myModalLabel"></h4>
+                            </div>
+                            <div class="modal-body">
+                                <form role="form">
+                                    <div class="form-group">
+                                        <label for="hostid">Host ID</label>
+                                        <input type="text" id="hostid" class="form-control" disabled />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="environment">Environment</label>
+                                        <input type="text" id="environment" class="form-control" disabled />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="projectname">Project Name</label>
+                                        <input type="text" id="projectname" class="form-control" disabled />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="groupname">Group Name</label>
+                                        <input type="text" id="groupname" class="form-control" disabled />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="hostname">Host Name</label>
+                                        <input type="text" id="hostname" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="ipaddress">IP Address</label>
+                                        <input type="text" id="ipaddress" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="hostvariables">Host Variables</label>
+                                        <input type="text" id="hostvariables" class="form-control" />
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Is Enabled</label><br />
+                                        <input type='radio' name='isenabled' value='Y'> Y<br />
+                                        <input type='radio' name='isenabled' value='N'> N <br />
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                <button type="button" id="updateHost" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
